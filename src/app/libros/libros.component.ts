@@ -30,11 +30,6 @@ export class LibrosComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.getLibros();
-  }
-
-
   public selectImage(event: any) {
     if (event.target.files.length > 0) {
       this.image = <File>event.target.files[0];
@@ -56,8 +51,6 @@ export class LibrosComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.image);
 
-    console.log(formData);
-
     this.http.post<any>('http://localhost:3000/libros/file', formData).subscribe(res => {
       console.log(res);
     });
@@ -74,21 +67,8 @@ export class LibrosComponent implements OnInit {
     });
   }
 
-
-
-  uploadPhoto(title: HTMLInputElement, description: HTMLTextAreaElement) {
-    /*
-    this.photoService
-      .createPhoto(title.value, description.value, this.file)
-      .subscribe(
-        res => {
-          console.log(res);
-          this.router.navigate(['/photos'])
-        },
-        err => console.log(err)
-      );
-    return false;*/
+  
+  ngOnInit(): void {
+    this.getLibros();
   }
-
-
 }
