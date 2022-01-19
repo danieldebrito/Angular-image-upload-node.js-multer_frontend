@@ -12,10 +12,11 @@ import { FormGroup, FormControl, Validators, AbstractControl, } from '@angular/f
 export class LibrosComponent implements OnInit {
 
   public libros: Libro[] = [];
+  public photoSelected: any = {};
+  public image: any = {};
+  public multipleImages = [];
 
   title = 'fileUpload';
-  public image = '';
-  multipleImages = [];
 
   constructor(
     private librosSv: LibrosService,
@@ -34,11 +35,14 @@ export class LibrosComponent implements OnInit {
   }
 
 
-  selectImage(event: any) {
+  public selectImage(event: any) {
     if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.image = file;
-      console.log( this.image);
+      this.image = <File>event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = e => this.photoSelected = reader.result;
+      reader.readAsDataURL(this.image);
+
     }
   }
 
@@ -68,6 +72,23 @@ export class LibrosComponent implements OnInit {
     this.http.post<any>('http://localhost:3000/libros/multipleFiles', formData).subscribe(res => {
       console.log(res);
     });
-
   }
+
+
+
+  uploadPhoto(title: HTMLInputElement, description: HTMLTextAreaElement) {
+    /*
+    this.photoService
+      .createPhoto(title.value, description.value, this.file)
+      .subscribe(
+        res => {
+          console.log(res);
+          this.router.navigate(['/photos'])
+        },
+        err => console.log(err)
+      );
+    return false;*/
+  }
+
+
 }

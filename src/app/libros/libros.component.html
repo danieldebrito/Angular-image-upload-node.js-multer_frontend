@@ -17,11 +17,7 @@
           <tr *ngFor="let e of libros">
             <td>{{ e.id }}</td>
             <td>{{ e.nombre }}</td>
-            <!--
-                          <td> <img src="{{ 'http://localhost:3000//' +  e.path }}" alt="" srcset=""> </td>
-            -->
-            <td> {{ e.path }} </td>
-
+            <td> <img src="{{ 'http://localhost:3000/libros/' +  e.imagen }}" alt="" srcset=""> </td>
             <td>@mdo</td>
           </tr>
         </tbody>
@@ -29,35 +25,49 @@
     </div>
     <div class="col-sm-6">
 
-      <h1 style="text-align: center">Fun Of Heuristic File Uploader</h1>
+      <div class="card">
+        <div class="card-header">
+          Upload a Photo
+        </div>
+        <div class="card-body">
+          <div style="text-align: center">
+            <form>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Photo's Title" #title required>
+              </div>
+              <div class="form-group">
+                <textarea rows="2" class="form-control" placeholder="Photo's Description" required #description></textarea>
+              </div>
+              <div>
+                <input type="file" name="image" (change)="selectImage($event)" enctype="multipart/form-data" #photoInput/>
+                <img [src]="photoSelected || 'assets/no-image.png'" class="img-fluid" alt="No image" (click)="photoInput.click()">
 
-<div style="text-align: center">
-  <form>      
-    <div>
-      <input type="file" name="image" (change)="selectImage($event)" enctype="multipart/form-data" />
-    </div>
-    <br>
-    <div>
-      <button type="submit" (click)="onSubmit()">Upload</button>
-    </div>
-  </form>
-</div>
-
-<hr>
-<h2 style="text-align: center">Multiple</h2>
-<div style="text-align: center">
-  <form>      
-    <div>
-      <input type="file" name="images" multiple (change)="selectMultipleImage($event)" />
-    </div>
-    <br>
-    <div>
-      <button type="submit" (click)="onMultipleSubmit()">Multiple Upload</button>
-    </div>
-  </form>
-</div>
+              </div>
+              <br>
+              <div>
+                <button type="submit" (click)="onSubmit()">Upload</button>
+              </div>
+            </form>
+          </div>
 
 
+        </div>
+      </div>
+
+      <hr>
+      <!--///////////////////////////////////********************/////////////////////////////////////-->
+      <h2 style="text-align: center">Multiple</h2>
+      <div style="text-align: center">
+        <form>
+          <div>
+            <input type="file" name="images" multiple (change)="selectMultipleImage($event)" />
+          </div>
+          <br>
+          <div>
+            <button type="submit" (click)="onMultipleSubmit()">Multiple Upload</button>
+          </div>
+        </form>
+      </div>
 
     </div>
   </div>
