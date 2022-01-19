@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Libro } from '../libro';
 import { LibrosService } from '../libros.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
-
+import { FormGroup, FormControl, Validators, AbstractControl, } from '@angular/forms';
 
 @Component({
   selector: 'app-libros',
@@ -55,7 +54,7 @@ export class LibrosComponent implements OnInit {
 
     console.log(formData);
 
-    this.http.post<any>('http://localhost:3000/libros/file', this.image).subscribe(res => {
+    this.http.post<any>('http://localhost:3000/libros/file', formData).subscribe(res => {
       console.log(res);
     });
   }
