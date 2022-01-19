@@ -15,8 +15,16 @@ export class LibrosComponent implements OnInit {
   public photoSelected: any = {};
   public image: any = {};
   public multipleImages = [];
+  public showErrors = false;
 
-  title = 'fileUpload';
+  createForm = new FormGroup({
+    nombre: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(40),
+      Validators.pattern('[a-zA-Z ]{2,41}'),
+    ]),
+  });
 
   constructor(
     private librosSv: LibrosService,
@@ -28,6 +36,10 @@ export class LibrosComponent implements OnInit {
       this.libros = res.libros;
       console.log(res);
     });
+  }
+
+  public resetError() {
+    this.showErrors = false;
   }
 
   public selectImage(event: any) {
@@ -51,7 +63,9 @@ export class LibrosComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.image);
 
-    this.http.post<any>('http://localhost:3000/libros/file', formData).subscribe(res => {
+    console.log(this.createForm.getRawValue());
+
+    this.http.post<any>('http://localhost:3000/libros/file', formData, this.createForm.getRawValue()).subscribe(res => {
       console.log(res);
     });
   }
