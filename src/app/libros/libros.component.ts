@@ -62,12 +62,16 @@ export class LibrosComponent implements OnInit {
   onSubmit() {
     const formData = new FormData();
     formData.append('file', this.image);
+    formData.append('nombre', this.createForm.getRawValue().nombre);
+    formData.append('imagen', 'path');
 
-    console.log(this.createForm.getRawValue());
+    // console.log(this.createForm.getRawValue());
 
-    this.http.post<any>('http://localhost:3000/libros/file', formData, this.createForm.getRawValue()).subscribe(res => {
+    this.http.post<any>('http://localhost:3000/libros/file', formData ).subscribe(res => {
       console.log(res);
+      this.getLibros();
     });
+    
   }
 
   onMultipleSubmit() {
