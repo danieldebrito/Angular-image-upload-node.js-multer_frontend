@@ -49,7 +49,6 @@ export class LibrosComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = e => this.photoSelected = reader.result;
       reader.readAsDataURL(this.image);
-
     }
   }
 
@@ -71,7 +70,6 @@ export class LibrosComponent implements OnInit {
       console.log(res);
       this.getLibros();
     });
-    
   }
 
   onMultipleSubmit() {
